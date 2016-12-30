@@ -41,7 +41,7 @@ app.post('/blog-posts', jsonParser, (req, res) => {
     }
   }
 
-  const item = BlogPosts.create(req.body.name, req.body.budget);
+  const item = BlogPosts.create(req.body.title, req.body.content, req.body.author, req.body.publishDate);
   res.status(201).json(item);
 });
 
@@ -66,8 +66,10 @@ app.put('/blog-posts/:id', jsonParser, (req, res) => {
   console.log(`Updating blog post \`${req.params.id}\``);
   const updatedItem = BlogPosts.update({
     id: req.params.id,
-    name: req.body.name,
-    budget: req.body.budget
+    title: req.body.title,
+    content: req.body.content, 
+    author: req.body.author,
+    publishDate: req.body.publishDate
   });
   res.status(204).json(updatedItem);
 });
@@ -77,5 +79,10 @@ app.delete('/blog-posts/:id', (req, res) => {
   BlogPosts.delete(req.params.id);
   console.log(`Deleted blog post \`${req.params.ID}\``);
   res.status(204).end();
+});
+
+// listening for changes
+app.listen(process.env.PORT || 8080, () => {
+  console.log(`Your app is listening on port ${process.env.PORT || 8080}`);
 });
 
