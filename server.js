@@ -47,7 +47,7 @@ app.post('/blog-posts', jsonParser, (req, res) => {
 
 // Update
 app.put('/blog-posts/:id', jsonParser, (req, res) => {
-  const requiredFields = ['title', 'content', 'author', 'publishDate'];
+  const requiredFields = ['id', 'title', 'content', 'author', 'publishDate'];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
@@ -71,14 +71,14 @@ app.put('/blog-posts/:id', jsonParser, (req, res) => {
     author: req.body.author,
     publishDate: req.body.publishDate
   });
-  res.status(204).json(updatedItem);
+  res.status(200).json(updatedItem);
 });
 
 // delete
 app.delete('/blog-posts/:id', (req, res) => {
   BlogPosts.delete(req.params.id);
   console.log(`Deleted blog post \`${req.params.ID}\``);
-  res.status(204).end();
+  res.status(200).end();
 });
 
 // listening for changes
