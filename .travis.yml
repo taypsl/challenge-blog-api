@@ -1,2 +1,9 @@
 language: node_js
 node_js: node
+deploy:
+  provider: heroku
+  api_key:
+    secure: uwWkrw48fADwWuRrJ/Xn9Wkaut4I90aIjicFp8kSqpJRG99dEVLna/6Sf7SO2akMH5UlMKxsMkVsDK7alev83Op+NTzoWtf1Om2PIYgW0MsN+IM0Cc7DNpcMzrlGEnavtcDs7L0O45LgpL6ah5CkaEUj5OJzVyrwyP9p15FYFE9DW9QI4P3pAEwP1wTUPSS51YHS2WCZlnwycuE/itZ8rW6+pT2fbBo+IXI8Z5UUg7YNM5zdr8bp5495ih8F/3JB1de4ZuTvp7vZ+ddvjKHVDoCgk4pS6JWTaSDZrd/raZ/N8elPDIaQ7LXgHEO69+Pfz/v0duM10lE3BezcUsY3mlFPvGxyzQTbgEfvNoiWryB5RdTzcKgFQTGiO4i2W/ftn9HmKjo72H/VBgmQVWNTw4v4JlbmNgDovr/TsJo6fqRnD+HMYwqyhn4MAtaoL4YxS3ZnjxlpVKPVvXeEwDtLQ9rcbeCBi+htkC6wWJNYyqKZWxnlOBA0Qw18dtfPcQiPDImpFwh6Io0wfjL+qNZg/wOOShuxjsRmuo9VbOouGBcBtoLUguErIABuX9Wfjz1O/6vzzi3Z54glIBZSZNpiTO4UOPJf4wYVO3MyOtYJOOGWIZGkb+GODdRsYAHWaeb5a09SyTrbrud0A3JQluJ+f7xi/DzB24+umoOdKhZH54M=
+  app: gentle-coast-59381
+  on:
+    repo: taypsl/challenge-blog-api
