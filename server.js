@@ -11,17 +11,17 @@ const app = express();
 app.use(morgan('common'));
 
 BlogPosts.create(
-	'Newer Post',
-	'This is my new blog post. It is soooo interesting. I know that everyone will want to read this post.',
-	'Me, of course',
-	'30 Dec. 2016'
+  'Newer Post',
+  'This is my new blog post. It is soooo interesting. I know that everyone will want to read this post.',
+  'Me, of course',
+  '30 Dec. 2016'
 );
 
 BlogPosts.create(
-	'New Post',
-	'This is my first blog post. Keep reading to read more of my first blog post.',
-	'Me, of course',
-	'29 Dec. 2016'
+  'New Post',
+  'This is my first blog post. Keep reading to read more of my first blog post.',
+  'Me, of course',
+  '29 Dec. 2016'
 );
 
 // access
@@ -81,8 +81,38 @@ app.delete('/blog-posts/:id', (req, res) => {
   res.status(200).end();
 });
 
-// listening for changes
-app.listen(process.env.PORT || 8080, () => {
-  console.log(`Your app is listening on port ${process.env.PORT || 8080}`);
-});
 
+// create runServer and closeServer functions to be used as hooks
+
+let server;
+
+function runServer() {
+  const port = process.env.PORT || 8080;
+  return new Promise((resolve, reject) => {
+    server = app.listen(port, () => {
+      console.log(`Your app is listening on port ${port}`);
+      resolve(server);
+    }).on('error', err => {
+      reject(err)
+    });
+  });
+}
+
+function closeServer() {
+  return new Promise((resolve, reject) => {
+    console.log('Closing server');
+    server.close(err => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve();
+    });
+  });
+}
+
+if (require.main === module) {
+  runServer().catch(err => console.error(err));
+};
+
+module.exports = {app, runServer, closeServer};
