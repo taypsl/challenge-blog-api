@@ -78,7 +78,7 @@ app.put('/blog-posts/:id', jsonParser, (req, res) => {
 app.delete('/blog-posts/:id', (req, res) => {
   BlogPosts.delete(req.params.id);
   console.log(`Deleted blog post \`${req.params.ID}\``);
-  res.status(200).end();
+  res.status(204).end();
 });
 
 
