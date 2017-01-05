@@ -27,7 +27,7 @@ describe('Blog Posts', function() {
 				res.body.should.be.a('array');
 				res.body.length.should.be.at.least(1);
 
-				const expectedKeys = ['title', 'content', 'author', 'publishDate'];
+				const expectedKeys = ['title', 'content', 'author', 'publishDate', 'id'];
 				res.body.forEach(function(post) {
 					post.should.be.a('object');
 					post.should.include.keys(expectedKeys);
@@ -36,7 +36,13 @@ describe('Blog Posts', function() {
 	});
 
 	it('should add a blog post on POST', function() {
-	    const newPost = {title: 'New Post', content: 'This is the text for my new post', author: 'Jane Doe', publishDate: 'July 31, 1980'};
+	    const newPost = {
+	    	title: 'New Post', 
+	    	content: 'This is the text for my new post', 
+	    	author: 'Jane Doe', 
+	    	publishDate: 'July 31, 1980'
+	    };
+
 	    return chai.request(app)
 	      	.post('/blog-posts')
 	      	.send(newPost)
@@ -60,7 +66,7 @@ describe('Blog Posts', function() {
 	    };
 
 	    return chai.request(app)
-	      // first have to get so we have an idea of object to update
+	      // first have to get so we have an id of object to update
 	      	.get('/blog-posts')
 	      	.then(function(res) {
 	        	updateData.id = res.body[0].id;
@@ -82,12 +88,11 @@ describe('Blog Posts', function() {
     	return chai.request(app)
      	.get('/blog-posts')
       	.then(function(res) {
-        	deleteData.id = res.body[0].id;
 
         	return chai.request(app)
-        	.delete(`/blog-posts/${deleteData.id}`);
+        	.delete(`/blog-posts/${res.body[0].id}`);
       	})
-      	
+
       	.then(function(res) {
         	res.should.have.status(204);
       	});
