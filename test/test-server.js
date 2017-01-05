@@ -88,9 +88,9 @@ describe('Blog Posts', function() {
     	return chai.request(app)
      	.get('/blog-posts')
       	.then(function(res) {
-
+      		const foundId = res.body[0].id;
         	return chai.request(app)
-        	.delete(`/blog-posts/${res.body[0].id}`);
+        	.delete(`/blog-posts/${foundId}`);
       	})
 
       	.then(function(res) {
